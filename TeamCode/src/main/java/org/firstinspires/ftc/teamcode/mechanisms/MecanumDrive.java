@@ -40,12 +40,13 @@ public class MecanumDrive {
      *
      * @param forward positive = forward, negative = backward
      * @param strafe  positive = drift right, negative = drift left
+     * @param turn    positive = turn right, negative = turn left
      */
-    public void drive(double forward, double strafe) {
-        double frontLeftPower = forward + strafe;
-        double frontRightPower = forward - strafe;
-        double rearLeftPower = forward - strafe;
-        double rearRightPower = forward + strafe;
+    public void drive(double forward, double strafe, double turn) {
+        double frontLeftPower = forward + strafe + turn;
+        double frontRightPower = forward - strafe - turn;
+        double rearLeftPower = forward - strafe + turn;
+        double rearRightPower = forward + strafe - turn;
 
         // Scale down so no wheel exceeds 1.0 while keeping the ratios (and direction) the same
         double max = Math.max(1.0, Math.max(
@@ -72,6 +73,6 @@ public class MecanumDrive {
      * Stop all four motors
      */
     public void stopMotors() {
-        drive(0, 0);
+        drive(0, 0, 0);
     }
 }
